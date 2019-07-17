@@ -10,18 +10,23 @@ import { Indicator } from 'mint-ui'
 import img from '../assets/car.png'
 
 export default {
+  data(){
+    return {
+      times: 1
+    }
+  },
   props: ['data'],
   methods: {
     mapInit() {
       Indicator.open('加载中...')
       var data = this.data
+      var _this = this
       const options = {
-        url: "https://js.arcgis.com/3.15/"
+        url: 'https://js.arcgis.com/3.15/init.js'
       };
       esriLoader
         .loadModules(
           [
-            "esri/basemaps",
             "esri/map",
             "esri/geometry/Point",
             "esri/SpatialReference",
@@ -33,19 +38,19 @@ export default {
           ],
           options
         )
-        .then(([basemaps, Map, Point, SpatialReference, PictureMarkerSymbol, Graphic, GraphicsLayer, ArcGISTiledMapServiceLayer]) => {
+        .then(([Map, Point, SpatialReference, PictureMarkerSymbol, Graphic, GraphicsLayer, ArcGISTiledMapServiceLayer]) => {
           // 地图实例化
           var map = new Map("pgis", {
-            basemap: "delorme",
+            // basemap: "delorme",
             center: [data[0].x, data[0].y],
             // center: [114.309, 30.578],
             zoom: 12,
             maxZoom: 16,
-            logo: false,
-            slider: false
+            logo: false
+            // slider: true
           })
           var _layer = new GraphicsLayer();
-          var burl = "https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetWarm/MapServer";
+          var burl = 'https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetWarm/MapServer';
           var electronicmap = new ArcGISTiledMapServiceLayer(burl);
           map.addLayer(electronicmap);
           map.addLayer(_layer);

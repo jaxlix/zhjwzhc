@@ -1,8 +1,8 @@
 <template>
     <div id="detail">
-        <header class="head">
+        <!-- <header class="head">
             <mt-button class="left-btn" icon="back" @click="$router.history.go(-1)">返回</mt-button>
-        </header>
+        </header> -->
         <pgisMap :data="data"></pgisMap>
     </div>
 </template>
